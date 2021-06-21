@@ -3,13 +3,12 @@
 namespace App\Services;
 
 use App\Contact;
-use App\Connections\DBConnection;
 use App\Models\ContactModel;
 
 class ContactService
 {
     private $model;
-    function __construct(ConnectionInterface $connection) {
+    function __construct($connection) {
         $this->model = new ContactModel($connection);
     }
 
@@ -17,7 +16,7 @@ class ContactService
     {
         $results = $this->model->findByName($name);
         if ($results) {
-            return new Contact($results[0]['number'], $results[0]['name']);
+            return new Contact($results[0]['mobile'], $results[0]['name']);
         }
 
         return null;

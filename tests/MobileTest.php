@@ -19,14 +19,4 @@ class MobileTest extends TestCase
 
 		$this->assertNull($mobile->makeCallByName(''));
 	}
-
-
-	/* test
-	public function it_returns_contact_when_name_was_sent()
-	{
-		$provider = new TwilioService();
-		$mobile = new Mobile($provider);
-
-		$this->assertNull($mobile->makeCallByName(''));
-	} */
 }
