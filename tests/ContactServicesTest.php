@@ -33,4 +33,24 @@ class ContactServicesTest extends TestCase
         $this->assertEquals($name, $contact->getName());
         $this->assertEquals($mobile, $contact->getMobile());
     }
+
+
+    /** @test */
+    public function it_returns_null_when_contac_is_not_found()
+    {
+        $name = 'michael';
+        $mobile = '987654321';
+
+        $dbMock = $this->createMock(DBConnection::class);
+
+        $dbMock->method('query');
+
+        $dbMock->method('resultSet')
+            ->willReturn([[]]);
+
+        $service = new ContactService($dbMock);
+
+        $contact = $service->findByName($name);
+        $this->assertNull($contact);
+    }
 }
