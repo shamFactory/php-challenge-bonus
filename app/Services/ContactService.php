@@ -12,10 +12,10 @@ class ContactService
         $this->model = new ContactModel($connection);
     }
 
-    public function findByName(String $name): Contact
+    public function findByName(String $name): ?Contact
     {
         $results = $this->model->findByName($name);
-        if ($results) {
+        if ($results && count($results) > 0) {
             return new Contact($results[0]['mobile'], $results[0]['name']);
         }
 

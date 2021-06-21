@@ -24,7 +24,7 @@ class ContactServicesTest extends TestCase
         $dbMock->method('resultSet')
             ->willReturn([[
                 'mobile' => $mobile,
-                'name' => $name
+                'name' => $name,
             ]]);
 
         $service = new ContactService($dbMock);
@@ -39,14 +39,13 @@ class ContactServicesTest extends TestCase
     public function it_returns_null_when_contac_is_not_found()
     {
         $name = 'michael';
-        $mobile = '987654321';
 
         $dbMock = $this->createMock(DBConnection::class);
 
         $dbMock->method('query');
 
         $dbMock->method('resultSet')
-            ->willReturn([[]]);
+            ->willReturn([]);
 
         $service = new ContactService($dbMock);
 
