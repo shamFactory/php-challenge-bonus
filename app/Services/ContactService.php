@@ -22,9 +22,8 @@ class ContactService
         return null;
     }
 
-    public function validateNumber(string $number): bool
+    public static function validateNumber(string $number): bool
     {
-        // logic to validate numbers
-        return true;
+        return (bool) preg_match('/^[0-9]{9}$/', (int) $number);
     }
 }

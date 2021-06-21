@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use App\Mobile;
 use App\Services\TwilioService;

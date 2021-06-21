@@ -2,10 +2,7 @@
 
 namespace Tests;
 
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use App\Mobile;
-use App\Services\TwilioService;
 use App\Connections\DBConnection;
 use App\Services\ContactService;
 
@@ -34,7 +31,6 @@ class ContactServicesTest extends TestCase
         $this->assertEquals($mobile, $contact->getMobile());
     }
 
-
     /** @test */
     public function it_returns_null_when_contac_is_not_found()
     {
@@ -51,5 +47,25 @@ class ContactServicesTest extends TestCase
 
         $contact = $service->findByName($name);
         $this->assertNull($contact);
+    }
+
+    /** @test */
+    public function validating_mobiles()
+    {
+        $tests = [
+            '987654321' => true,
+            '98765432' => false,
+            '98765432X' => false,
+            '009876543' => false,
+            '9876.4321' => false,
+        ];
+
+        foreach ($tests as $number => $hasTobe) {
+            if ($hasTobe) {
+                $this->assertTrue(ContactService::validateNumber($number));
+            } else {
+                $this->assertFalse(ContactService::validateNumber($number));
+            }
+        }
     }
 }
