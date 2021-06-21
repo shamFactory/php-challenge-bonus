@@ -18,4 +18,30 @@ class MobileTest extends TestCase
 
 		$this->assertNull($mobile->makeCallByName(''));
 	}
+
+	/** @test */
+	public function it_returns_message_when_name_is_not_empty()
+	{
+		$name = 'michael';
+        $mobileNumber = '987654321';
+        $message = 'message';
+
+        $dbMock = $this->createMock(DBConnection::class);
+
+        $dbMock->method('query');
+
+        $dbMock->method('resultSet')
+            ->willReturn([[
+                'mobile' => $mobileNumber,
+                'name' => $name,
+            ]]);
+
+		$provider = new TwilioService();
+		$provider->setMessage($message);
+		$mobile = new Mobile($provider, $dbMock);
+
+		$call = $mobile->makeCallByName($name);
+		$this->assertEquals($mobileNumber, $call->getMobile());
+		$this->assertEquals($message, $call->getMessage());
+	}
 }

@@ -19,8 +19,6 @@ class TwilioService implements CarrierInterface
         if (!ContactService::validateNumber($contact->getMobile())) {
             throw new \Exception('invalid mobile');
         }
-
-        return $this->makeCall();
     }
 
 	public function makeCall(): Call {

@@ -19,7 +19,8 @@ class TwilioServicesTest extends TestCase
 		$contact = new Contact($mobile, $name);
 
 		$service->setMessage($message);
-		$call = $service->dialContact($contact);
+		$service->dialContact($contact);
+		$call = $service->makeCall();
 
 		$this->assertEquals($mobile, $call->getMobile());
 		$this->assertEquals($message, $call->getMessage());
