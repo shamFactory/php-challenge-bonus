@@ -3,17 +3,18 @@
 namespace App;
 
 use App\Interfaces\CarrierInterface;
+use App\Interfaces\ConnectionInterface;
 use App\Services\ContactService;
-
 
 class Mobile
 {
-
+	protected $connection;
 	protected $provider;
-	
-	function __construct(CarrierInterface $provider)
+
+	function __construct(CarrierInterface $provider, ConnectionInterface $connection)
 	{
 		$this->provider = $provider;
+		$this->connection = $connection;
 	}
 
 
@@ -21,7 +22,8 @@ class Mobile
 	{
 		if( empty($name) ) return;
 
-		$contact = ContactService::findByName($name);
+		$contactService = new ContactService($this->connection);
+		$contact = $contactService->findByName($name);
 
 		$this->provider->dialContact($contact);
 
